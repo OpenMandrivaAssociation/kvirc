@@ -93,7 +93,7 @@ sh autogen.sh
 %configure --with-qt-library-dir=%_prefix/lib/qt3/%_lib/
 
 
-%make
+make
 
 %install
 %makeinstall_std
