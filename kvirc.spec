@@ -14,6 +14,7 @@ URL:            http://www.kvirc.net
 Source:	        %{name}-%{version}.rev%{revision}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:  qt3-devel
+BuildRequires:  kdelibs-devel
 
 %description
 
@@ -92,7 +93,7 @@ sh autogen.sh
 %configure --with-qt-library-dir=%_prefix/lib/qt3/%_lib/
 
 
-make
+%make
 
 %install
 %makeinstall_std
