@@ -33,16 +33,16 @@ Unix based IRC client.
 %{_datadir}/services/irc.protocol
 %{_datadir}/services/irc6.protocol
 %{_datadir}/kvirc/3.2/pics/*.png
-%{_datadir}/kvirc/3.2/icons/*/*
+%{_iconsdir}/*/*
 %{_datadir}/kvirc/3.2/pics/coresmall/*.png
 %{_datadir}/kvirc/3.2/themes/silverirc/*.png
 %{_datadir}/kvirc/3.2/help/en/*.html
-%{_datadir}/kvirc/3.2/applnk/kvirc.desktop
+%{_datadir}/applnk/Internet/kvirc.desktop
 %{_datadir}/kvirc/3.2/config/*
 %{_datadir}/kvirc/3.2/defscript/*
 %{_datadir}/kvirc/3.2/help/en/*
 %{_datadir}/kvirc/3.2/license/COPYING
-%{_datadir}/kvirc/3.2/mimelnk/*
+%{_datadir}/mimelnk/*
 %{_datadir}/kvirc/3.2/msgcolors/*
 %{_datadir}/kvirc/3.2/themes/silverirc/*
 
