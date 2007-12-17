@@ -12,7 +12,6 @@ Group:          Networking/IRC
 License:        GPL
 URL:            http://www.kvirc.net
 Source:	        %{name}-%{version}.rev%{revision}.tar.bz2
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:  qt3-devel
 BuildRequires:  kdelibs-devel
 
