@@ -1,102 +1,95 @@
-%define lib_name_orig %mklibname %name
-%define lib_major 3
-%define lib_name %lib_name_orig%lib_major
+%define major		3
+%define libname		%mklibname %name %major
+%define develname	%mklibname %name -d
 
-%define revision 661
-
-Name:           kvirc
-Version:        3.2.6
-Release:        %mkrel 1
-Summary:        Unix based IRC client
-Group:          Networking/IRC
-License:        GPL
-URL:            http://www.kvirc.net
-Source:	        %{name}-%{version}.rev%{revision}.tar.bz2
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  qt3-devel
-BuildRequires:  kdelibs-devel
+Name:		kvirc
+Version:	3.2.6
+Release:	%mkrel 1
+Summary:	Qt IRC client
+Group:		Networking/IRC
+License:	GPLv2+
+URL:		http://www.kvirc.net
+Source:		%{name}-%{version}.tar.bz2
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}
+BuildRequires:	qt3-devel
+BuildRequires:	kdelibs-devel
+BuildRequires:	arts-devel
+BuildRequires:	autoconf
+BuildRequires:	perl-devel
+BuildRequires:	esound-devel
 
 %description
+Qt-based IRC client with support for themes, transparency, encryption,
+many extended IRC features, and scripting.
 
-Unix based IRC client.
+%package -n %{libname}
+Summary:        Shared library of %{name}
+Group:          System/Libraries
 
-%files
-%defattr(-,root,root,-)
-%{_bindir}/kvi_run_netscape
-%{_bindir}/kvi_search_help
-%{_bindir}/kvirc
-%{_bindir}/kvirc-config
-%{_datadir}/kvirc/3.2/locale/*
-%{_datadir}/kvirc/3.2/modules/*
-%{_datadir}/kvirc/3.2/config/modules/*
-%{_mandir}/man1/kvirc.1.*
-%{_datadir}/services/irc.protocol
-%{_datadir}/services/irc6.protocol
-%{_datadir}/kvirc/3.2/pics/*.png
-%{_iconsdir}/*/*
-%{_datadir}/kvirc/3.2/pics/coresmall/*.png
-%{_datadir}/kvirc/3.2/themes/silverirc/*.png
-%{_datadir}/kvirc/3.2/help/en/*.html
-%{_datadir}/applnk/Internet/kvirc.desktop
-%{_datadir}/kvirc/3.2/config/*
-%{_datadir}/kvirc/3.2/defscript/*
-%{_datadir}/kvirc/3.2/help/en/*
-%{_datadir}/kvirc/3.2/license/COPYING
-%{_datadir}/mimelnk/*
-%{_datadir}/kvirc/3.2/msgcolors/*
-%{_datadir}/kvirc/3.2/themes/silverirc/*
+%description -n %{libname}
+Shared library provided by %{name}.
 
-#--------------------------------------------------------------------
+%package  -n    %{develname}
+Requires:       %{libname} = %{version}-%{release}
+Summary:        Development headers for %{name}
+Group:          Development/C++
+Provides:       %{name}-devel = %{version}-%{release}
+Obsoletes:	%{mklibname kvirc 3 -d}
 
-%package -n %lib_name
-Summary:        Headers files for %{name}
-Group:          Development/Other
-Provides:       lib%name
-
-%description -n %lib_name
-Libraries for %name
-
-%post -n %{lib_name} -p /sbin/ldconfig
-%postun -n %{lib_name} -p /sbin/ldconfig
-
-%files -n %lib_name
-%defattr(-,root,root)
-%{_libdir}/libkvilib.so.%{lib_major}*
-
-#--------------------------------------------------------------------
-
-%package  -n    %lib_name-devel
-Requires:       %{lib_name} = %{version}
-Summary:        %{name} development files
-Group:          Development/Other
-Provides:       %name-devel
-
-%description -n %lib_name-devel
-%{name} development files.
-
-%files  -n %lib_name-devel
-%defattr(-,root,root)
-%dir %{_includedir}/kvirc/%version
-%{_includedir}/kvirc/%version/*.h
-%{_libdir}/libkvilib.la
-%{_libdir}/libkvilib.so
-
-#--------------------------------------------------------------------
+%description -n %{develname}
+Development headers for %{name}.
 
 %prep 
-%setup -q -n %name
-
+%setup -q
 
 %build
 sh autogen.sh
-
-%configure --with-qt-library-dir=%_prefix/lib/qt3/%_lib/
-
-
-make
+%configure2_5x --with-qt-library-dir=%{_prefix}/lib/qt3/%{_lib}/ --with-kde-library-dir=%{_libdir}/kde3/
+%make
 
 %install
 %makeinstall_std
- 
+
+mkdir -p %{buildroot}%{_datadir}/applications
+cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop <<EOF
+[Desktop Entry]
+Name=KVIrc
+Comment=IRC chat client
+Exec=%{_bindir}/%{name} -m %u
+Icon=%{name}
+Terminal=false
+Type=Application
+StartupNotify=true
+MimeType=application/x-kva;application/x-kvt;
+Categories=Qt;Network;IRCClient;
+EOF
+
+rm -rf %{buildroot}%{_datadir}/applnk
+
+%post -n %{libname} -p /sbin/ldconfig
+
+%postun -n %{libname} -p /sbin/ldconfig
+
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
+
+%files
+%defattr(-,root,root,-)
+%{_bindir}/*
+%{_datadir}/%{name}
+%{_mandir}/man1/*
+%{_datadir}/services/*
+%{_iconsdir}/hicolor/*/*/*.*
+%{_datadir}/applications/mandriva-%{name}.desktop
+%{_datadir}/mimelnk/*
+
+%files -n %{libname}
+%defattr(-,root,root)
+%{_libdir}/libkvilib.so.%{major}*
+
+%files  -n %{develname}
+%defattr(-,root,root)
+%{_includedir}/%{name}
+%{_libdir}/libkvilib.la
+%{_libdir}/libkvilib.so
+
