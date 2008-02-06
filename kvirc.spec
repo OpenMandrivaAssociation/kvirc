@@ -45,7 +45,7 @@ Development headers for %{name}.
 %build
 sh autogen.sh
 %configure2_5x --with-qt-library-dir=%{_prefix}/lib/qt3/%{_lib}/ --with-kde-library-dir=%{_libdir}/kde3/
-%make
+make
 
 %install
 %makeinstall_std
