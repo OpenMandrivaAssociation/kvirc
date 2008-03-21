@@ -4,7 +4,7 @@
 
 Name:		kvirc
 Version:	3.2.6
-Release:	%mkrel 1
+Release:	%mkrel 2
 Summary:	Qt IRC client
 Group:		Networking/IRC
 License:	GPLv2+
@@ -65,6 +65,9 @@ Categories=Qt;Network;IRCClient;
 EOF
 
 rm -rf %{buildroot}%{_datadir}/applnk
+# conflicts with Kopete, Kopete should probably be default - AdamW
+# 2008/03
+rm -f %{buildroot}%{_datadir}/services/irc.protocol
 
 %post -n %{libname} -p /sbin/ldconfig
 
