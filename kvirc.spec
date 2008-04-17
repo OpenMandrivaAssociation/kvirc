@@ -3,8 +3,8 @@
 %define develname	%mklibname %name -d
 
 Name:		kvirc
-Version:	3.2.6
-Release:	%mkrel 2
+Version:	3.4.0
+Release:	%mkrel 1
 Summary:	Qt IRC client
 Group:		Networking/IRC
 License:	GPLv2+
@@ -34,7 +34,7 @@ Requires:       %{libname} = %{version}-%{release}
 Summary:        Development headers for %{name}
 Group:          Development/C++
 Provides:       %{name}-devel = %{version}-%{release}
-Obsoletes:	%{mklibname kvirc 3 -d}
+Obsoletes:	%{mklibname kvirc 3 -d} < %{version}-%{release}
 
 %description -n %{develname}
 Development headers for %{name}.
@@ -44,7 +44,7 @@ Development headers for %{name}.
 
 %build
 sh autogen.sh
-%configure2_5x --with-qt-library-dir=%{_prefix}/lib/qt3/%{_lib}/ --with-kde-library-dir=%{_libdir}/kde3/
+%configure2_5x --with-qt-library-dir=%{qt3lib} --with-kde-library-dir=%{_libdir}/kde3/
 make
 
 %install
