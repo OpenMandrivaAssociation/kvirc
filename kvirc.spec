@@ -69,9 +69,13 @@ rm -rf %{buildroot}%{_datadir}/applnk
 # 2008/03
 rm -f %{buildroot}%{_datadir}/services/irc.protocol
 
+%if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
+%endif
 
+%if %mdkversion < 200900
 %postun -n %{libname} -p /sbin/ldconfig
+%endif
 
 %clean
 rm -rf %{buildroot}
