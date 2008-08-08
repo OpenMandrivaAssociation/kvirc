@@ -4,7 +4,7 @@
 
 Name:		kvirc
 Version:	3.4.0
-Release:	%mkrel 1
+Release:	%mkrel 2
 Summary:	Qt IRC client
 Group:		Networking/IRC
 License:	GPLv2+
