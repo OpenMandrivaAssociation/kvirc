@@ -8,6 +8,7 @@
 %define svn	2417
 %define rel	1
 %if %svn
+# https://svn.kvirc.de/svn/branches/kvirc/3.4
 %define release		%mkrel 0.%{svn}.%{rel}
 %define distname	%{name}-%{svn}.tar.lzma
 %define dirname		%{name}
