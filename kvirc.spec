@@ -61,7 +61,7 @@ Development headers for %{name}.
 
 %build
 sh autogen.sh
-%configure_kde3 --with-qt-library-dir=%{qt3lib} --with-kde-library-dir=/opt/kde3/lib/ --mandir=%{_kde3_mandir}
+%configure_kde3 --with-qt-library-dir=%{qt3lib} --with-kde-library-dir=%{_kde3_libdir} --mandir=%{_kde3_mandir}
 make
 
 %install
