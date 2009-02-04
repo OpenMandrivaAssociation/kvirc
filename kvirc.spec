@@ -1,9 +1,9 @@
-%define svn	2842
-%define rel	2
+%define svn	3065
+%define rel	1
 
 %if %svn
-%define release		%mkrel 0.%svn.%rel
-%define distname	%{name}-%{svn}.tar.lzma
+%define release		%mkrel 0.svn%svn.%rel
+%define distname	%{name}-%{version}.svn%{svn}.tar.lzma
 %define dirname		%{name}
 %else
 %define release		%mkrel %rel
@@ -23,8 +23,6 @@ Group:		Networking/IRC
 License:	GPLv2+ with exceptions
 URL:		http://www.kvirc.net
 Source0:	%{distname}
-# -m option is unrecognized and breaks loading - AdamW 2008/11
-Patch0:		kvirc-4.0.0-desktop.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:	qt4-devel
 BuildRequires:	kdelibs4-devel
@@ -58,7 +56,6 @@ Development headers for KVirc 4.
 
 %prep 
 %setup -q -n %{dirname}
-%patch0 -p1 -b .desktop
 
 %build
 %cmake -DWITH_KDE4=true -DLIB_INSTALL_PREFIX=%{_libdir}
