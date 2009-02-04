@@ -2,8 +2,8 @@
 %define rel	1
 
 %if %svn
-%define release		%mkrel 0.svn%svn.%rel
-%define distname	%{name}-%{version}.svn%{svn}.tar.lzma
+%define release		%mkrel 0.%{svn}.%{rel}
+%define distname	%{name}-%{svn}.tar.lzma
 %define dirname		%{name}
 %else
 %define release		%mkrel %rel
