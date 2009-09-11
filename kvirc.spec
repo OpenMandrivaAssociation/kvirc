@@ -1,5 +1,5 @@
 %define svn	3065
-%define rel	1
+%define rel	2
 
 %if %svn
 %define release		%mkrel 0.%{svn}.%{rel}
