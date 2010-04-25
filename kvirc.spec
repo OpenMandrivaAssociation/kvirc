@@ -1,9 +1,9 @@
-%define svn	3065
-%define rel	2
+%define svn	4255
+%define rel	1
 
 %if %svn
 %define release		%mkrel 0.%{svn}.%{rel}
-%define distname	%{name}-%{svn}.tar.lzma
+%define distname	%{name}-%{svn}.tar.xz
 %define dirname		%{name}
 %else
 %define release		%mkrel %rel
@@ -30,6 +30,7 @@ BuildRequires:	perl-devel
 BuildRequires:	gettext
 BuildRequires:	phonon-devel
 BuildRequires:	openssl-devel
+BuildRequires:	doxygen
 Obsoletes:	kvirc4
 Provides:	kvirc4
 
@@ -68,9 +69,10 @@ pushd build
 popd
 
 mkdir -p %{buildroot}%{_iconsdir}/hicolor/{16x16,32x32,48x48,64x64,128x128,scalable}/apps
-for i in 16x16 32x32 48x48 64x64 128x128 scalable; do \
-	cp data/icons/$i/*.* %{buildroot}%{_iconsdir}/hicolor/$i/apps; \
+for i in 16x16 32x32 48x48 64x64 128x128; do \
+	cp data/icons/$i/*.png %{buildroot}%{_iconsdir}/hicolor/$i/apps; \
 done
+cp data/icons/scalable/*.svg* %{buildroot}%{_iconsdir}/hicolor/scalable/apps
 rm -f %{buildroot}%{_iconsdir}/hicolor/scalable/apps/createpng.sh
 
 %if %mdkversion < 200900
@@ -89,18 +91,19 @@ rm -rf %{buildroot}
 %{_bindir}/*
 %{_libdir}/%{name}/4.0
 %{_datadir}/%{name}/4.0
-%{_iconsdir}/hicolor/*/apps/*
-%{_iconsdir}/hicolor/*/*.png
-%{_iconsdir}/hicolor/scalable/*.svgz
+%{_iconsdir}/hicolor/*/*/*.png
+%{_iconsdir}/hicolor/scalable/*/*.svgz
 %{_mandir}/man1/*.1*
-%{_datadir}/applications/%{name}4.desktop
-%{_datadir}/mimelnk/*/*.desktop
+%lang(de) %_mandir/de/man1/*.1*
+%lang(it) %_mandir/it/man1/*.1*
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/mime/packages/%{name}.xml
+%{_datadir}/pixmaps/%{name}.png
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/libkvilib4.so.%{major}*
+%{_libdir}/libkvilib.so.%{major}*
 
 %files  -n %{develname}
 %defattr(-,root,root)
-%{_libdir}/libkvilib4.so
-
+%{_libdir}/libkvilib.so
