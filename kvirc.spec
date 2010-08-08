@@ -1,28 +1,15 @@
-%define svn	4255
-%define rel	1
-
-%if %svn
-%define release		%mkrel 0.%{svn}.%{rel}
-%define distname	%{name}-%{svn}.tar.xz
-%define dirname		%{name}
-%else
-%define release		%mkrel %rel
-%define distname	%{name}-%{version}.tar.bz2
-%define dirname		%{name}-%{version}
-%endif
-
 %define major		4
 %define libname		%mklibname kvilib4_ %major
 %define develname	%mklibname kvilib4 -d
 
 Name:		kvirc
-Version:	4.0.0
-Release:	%{release}
+Version:	4.0.2
+Release:	%mkrel 1
 Summary:	Qt IRC client
 Group:		Networking/IRC
 License:	GPLv2+ with exceptions
 URL:		http://www.kvirc.net
-Source0:	%{distname}
+Source0:	ftp://ftp.kvirc.de/pub/%{name}/%{version}/source/%{name}-%{version}.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:	qt4-devel
 BuildRequires:	kdelibs4-devel
@@ -56,7 +43,7 @@ Obsoletes:	%{mklibname kvirc 3 -d} < %{version}-%{release}
 Development headers for KVirc 4.
 
 %prep 
-%setup -q -n %{dirname}
+%setup -q
 
 %build
 %cmake -DWITH_KDE4=true -DLIB_INSTALL_PREFIX=%{_libdir}
