@@ -85,6 +85,7 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*.1*
 %lang(de) %_mandir/de/man1/*.1*
 %lang(it) %_mandir/it/man1/*.1*
+%lang(fr) %_mandir/it/man1/*.1*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/pixmaps/%{name}.png
