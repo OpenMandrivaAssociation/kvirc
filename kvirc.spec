@@ -1,25 +1,27 @@
 %define major		4
-%define libname		%mklibname kvilib4_ %major
-%define develname	%mklibname kvilib4 -d
+%define libname		%mklibname kvilib %major
+%define develname	%mklibname kvilib -d
 
 Name:		kvirc
-Version:	4.0.2
-Release:	%mkrel 2
+Version:	4.0.4
+Release:	%mkrel 1
 Summary:	Qt IRC client
 Group:		Networking/IRC
 License:	GPLv2+ with exceptions
 URL:		http://www.kvirc.net
-Source0:	ftp://ftp.kvirc.de/pub/%{name}/%{version}/source/%{name}-%{version}.tar.bz2
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:	qt4-devel
+Source0:	%{name}-%{version}.tar.bz2
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+BuildRequires:	cmake
 BuildRequires:	kdelibs4-devel
 BuildRequires:	perl-devel
 BuildRequires:	gettext
 BuildRequires:	phonon-devel
 BuildRequires:	openssl-devel
 BuildRequires:	doxygen
-Obsoletes:	kvirc4
-Provides:	kvirc4
+BuildRequires:	shared-mime-info > 0.23
+BuildRequires:	gsm-devel
+Obsoletes:	kvirc4 < %version-%release
+Provides:	kvirc4 = %version-%release
 
 %description
 Qt-based IRC client with support for themes, transparency, encryption,
@@ -28,6 +30,7 @@ many extended IRC features, and scripting.
 %package -n %{libname}
 Summary:	Shared library for KVirc 4
 Group:		System/Libraries
+Obsoletes:	%{mklibname kvirc 4 4} 
 
 %description -n %{libname}
 Shared library provided by KVirc 4.
@@ -38,6 +41,7 @@ Summary:	Development headers for KVirc 4
 Group:		Development/C++
 Provides:	%{name}-devel = %{version}-%{release}
 Obsoletes:	%{mklibname kvirc 3 -d} < %{version}-%{release}
+Obsoletes:	%{mklibname kvirc 4 -d} 
 
 %description -n %{develname}
 Development headers for KVirc 4.
@@ -46,14 +50,12 @@ Development headers for KVirc 4.
 %setup -q
 
 %build
-%cmake -DWITH_KDE4=true -DLIB_INSTALL_PREFIX=%{_libdir}
+%cmake_kde4
 %make
 
 %install
 rm -rf %{buildroot}
-pushd build
-%makeinstall_std
-popd
+%makeinstall_std -C build
 
 mkdir -p %{buildroot}%{_iconsdir}/hicolor/{16x16,32x32,48x48,64x64,128x128,scalable}/apps
 for i in 16x16 32x32 48x48 64x64 128x128; do \
@@ -93,4 +95,5 @@ rm -rf %{buildroot}
 
 %files  -n %{develname}
 %defattr(-,root,root)
+%{_bindir}/%name-config
 %{_libdir}/libkvilib.so
