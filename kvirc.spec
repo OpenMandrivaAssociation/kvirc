@@ -37,6 +37,7 @@ many extended IRC features, and scripting.
 %{_bindir}/%{name}
 %{_libdir}/%{name}/%{branch_ver}/modules/
 %{_datadir}/%{name}/
+%{_datadir}/apps/kvirc/kvirc.notifyrc
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/pixmaps/%{name}.png
@@ -84,7 +85,10 @@ Development headers for KVirc 4.
 %build
 %cmake_kde4 \
     -DWANT_DCC_VIDEO=ON \
-    -DWANT_OGG_THEORA=ON
+    -DWANT_OGG_THEORA=ON \
+%{?svn:\
+    -DMANUAL_REVISION=%{svnrev}}
+
 %make
 
 %install
