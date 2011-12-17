@@ -1,5 +1,5 @@
 %define svn 1
-%define svnrev 5992
+%define svnrev 5993
 %define branch_ver 4.1
 
 %define major		4
