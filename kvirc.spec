@@ -28,6 +28,7 @@ BuildRequires:	pkgconfig(python)
 BuildRequires:	pkgconfig(theora)
 Obsoletes:	kvirc4 < %version-%release
 Provides:	kvirc4 = %version-%release
+Provides:	kde4-irc-client
 
 %description
 Qt-based IRC client with support for themes, transparency, encryption,
