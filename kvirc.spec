@@ -1,5 +1,5 @@
 %define svn 1
-%define svnrev 5993
+%define svnrev 6063
 %define branch_ver 4.1
 
 %define major		4
@@ -13,7 +13,7 @@ Version:	4.1.3
 Release:	%mkrel -c svn%{svnrev} 1
 License:	GPLv2+ with exceptions
 URL:		http://www.kvirc.net
-Source0:	ftp://ftp.kvirc.net/pub/kvirc/%{version}/source/%{name}%{?!svn:-%{version}}.tar.gz
+Source0:	ftp://ftp.kvirc.net/pub/kvirc/%{version}/source/%{name}%{?!svn:-%{version}}%{?svn:-%{svnrev}}.tar.xz
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	gettext
