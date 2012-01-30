@@ -34,10 +34,22 @@ Provides:	kde4-irc-client
 Qt-based IRC client with support for themes, transparency, encryption,
 many extended IRC features, and scripting.
 
-%files
+%files -f %name.lang
 %{_bindir}/%{name}
 %{_libdir}/%{name}/%{branch_ver}/modules/
-%{_datadir}/%{name}/
+%dir %{_datadir}/%{name}/
+%dir %{_datadir}/%{name}/%{branch_ver}
+%{_datadir}/%{name}/%{branch_ver}/audio
+%{_datadir}/%{name}/%{branch_ver}/config
+%{_datadir}/%{name}/%{branch_ver}/defscript
+%{_datadir}/%{name}/%{branch_ver}/doc
+%{_datadir}/%{name}/%{branch_ver}/help
+%{_datadir}/%{name}/%{branch_ver}/license
+%dir %{_datadir}/%{name}/%{branch_ver}/locale
+%{_datadir}/%{name}/%{branch_ver}/modules
+%{_datadir}/%{name}/%{branch_ver}/msgcolors
+%{_datadir}/%{name}/%{branch_ver}/pics
+%{_datadir}/%{name}/%{branch_ver}/themes
 %{_datadir}/apps/kvirc/kvirc.notifyrc
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/mime/packages/%{name}.xml
@@ -101,6 +113,13 @@ for i in 16x16 32x32 48x48 64x64 128x128; do \
 	cp data/icons/$i/*.png %{buildroot}%{_iconsdir}/hicolor/$i/apps; \
 done
 cp data/icons/scalable/*.svg* %{buildroot}%{_iconsdir}/hicolor/scalable/apps
+
+rm -f %name.lang
+find %buildroot%{_datadir}/%{name}/%{branch_ver}/locale -name "*.mo" |while read r; do
+        LNG=`echo $r |sed -e 's,.*_,,g;s,\.mo,,'`
+        echo "%lang($LNG) $r" |sed -e 's,%buildroot,,' >>%name.lang
+done
+
 
 %check
 desktop-file-validate %{buildroot}%{_kde_datadir}/applications/%{name}.desktop
