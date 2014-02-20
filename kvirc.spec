@@ -2,9 +2,9 @@
 %define branch_ver 4.3
 %define _disable_ld_no_undefined 1
 
-%define major		4
-%define libname		%mklibname kvilib %{major}
-%define develname	%mklibname kvilib -d
+%define major 4
+%define libname %mklibname kvilib %{major}
+%define develname %mklibname kvilib -d
 
 Name:		kvirc
 Summary:	Qt IRC client
