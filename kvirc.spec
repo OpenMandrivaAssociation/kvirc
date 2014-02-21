@@ -18,6 +18,7 @@ Source0:	kvirc-%svnrev.tar.xz
 %else
 Source0:	ftp://ftp.kvirc.net/pub/kvirc/%{version}/source/%{name}-%{version}.tar.bz2
 %endif
+Patch1:		kvirc-4.2.0-v4l_deprecations.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	gettext
@@ -97,6 +98,7 @@ Development headers for KVirc 4.
 #--------------------------------------------------------------------
 %prep
 %setup -q
+%apply_patches
 
 %build
 %cmake_kde4 \
