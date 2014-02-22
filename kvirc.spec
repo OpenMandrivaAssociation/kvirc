@@ -1,6 +1,7 @@
 %define svnrev 6296
 %define branch_ver 4.3
 %define _disable_ld_no_undefined 1
+%define debug_package          %{nil}
 
 %define major 4
 %define libname %mklibname kvilib %{major}
