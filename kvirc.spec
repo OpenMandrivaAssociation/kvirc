@@ -1,37 +1,45 @@
-%define svnrev 6296
+%define svnrev 6381
 %define branch_ver 4.3
 %define _disable_ld_no_undefined 1
-%define debug_package          %{nil}
+%define debug_package	  %{nil}
 
 %define major 4
 %define libname %mklibname kvilib %{major}
 %define develname %mklibname kvilib -d
 
-Name:		kvirc
+Name:	kvirc
 Summary:	Qt IRC client
-Group:		Networking/IRC
-Version:	4.3.1
-Release:	2
+Group:	Networking/IRC
+Version:	4.3.2
 License:	GPLv2+ with exceptions
-URL:		http://www.kvirc.net
+URL:	http://www.kvirc.net
 %if 0%svnrev
 Source0:	kvirc-%svnrev.tar.xz
+Release:	0.%svnrev.1
 %else
 Source0:	ftp://ftp.kvirc.net/pub/kvirc/%{version}/source/%{name}-%{version}.tar.bz2
+Release:	1
 %endif
-Patch1:		kvirc-4.2.0-v4l_deprecations.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	gettext
 BuildRequires:	gsm-devel
-BuildRequires:	kdelibs4-devel
 BuildRequires:	perl-devel
 BuildRequires:	shared-mime-info > 0.23
 BuildRequires:	pkgconfig(libv4l1)
 BuildRequires:	pkgconfig(openssl)
-BuildRequires:	pkgconfig(phonon)
+BuildRequires:	cmake(Phonon4Qt5)
 BuildRequires:	pkgconfig(python)
 BuildRequires:	pkgconfig(theora)
+BuildRequires:	pkgconfig(Qt5Widgets)
+BuildRequires:	cmake(Qt5MultimediaWidgets)
+BuildRequires:	cmake(Qt5WebKitWidgets)
+BuildRequires:	cmake(Qt5Svg)
+BuildRequires:	cmake(Qt5Xml)
+BuildRequires:	pkgconfig(theora)
+BuildRequires:	pkgconfig(ogg)
+BuildRequires:	pkgconfig(vorbis)
+BuildRequires:	qmake5
 Provides:	kde4-irc-client
 %rename kvirc4
 
@@ -55,11 +63,8 @@ many extended IRC features, and scripting.
 %{_datadir}/%{name}/%{branch_ver}/msgcolors
 %{_datadir}/%{name}/%{branch_ver}/pics
 %{_datadir}/%{name}/%{branch_ver}/themes
-%{_datadir}/apps/kvirc/kvirc.notifyrc
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/pixmaps/%{name}.png
-%{_datadir}/kde4/services/*
 %{_iconsdir}/hicolor/*/*/*.png
 %{_iconsdir}/hicolor/scalable/*/*.svgz
 %{_mandir}/man1/*.1*
@@ -72,7 +77,7 @@ many extended IRC features, and scripting.
 #--------------------------------------------------------------------
 %package -n %{libname}
 Summary:	Shared library for KVirc 4
-Group:		System/Libraries
+Group:	System/Libraries
 Obsoletes:	%{mklibname kvirc 4 4} < 4.2.0
 
 %description -n %{libname}
@@ -85,7 +90,7 @@ Shared library provided by KVirc 4.
 %package -n %{develname}
 Requires:	%{libname} = %{version}-%{release}
 Summary:	Development headers for KVirc 4
-Group:		Development/C++
+Group:	Development/C++
 Provides:	%{name}-devel = %{version}-%{release}
 Obsoletes:	%{mklibname kvirc 4 -d} < 4.2.0
 
@@ -98,19 +103,28 @@ Development headers for KVirc 4.
 
 #--------------------------------------------------------------------
 %prep
+%if 0%svnrev
+%setup -qn %{name}-%{svnrev}
+%else
 %setup -q
+%endif
 %apply_patches
 
 %build
-%cmake_kde4 \
+# WANT_DCC_CANVAS tries to #include <QCanvas>, which fails on modern
+# versions of Qt (replaced with GraphicsView)
+# Should be enabled once this is fixed.
+%cmake \
 %if 0%svnrev
-    -DMANUAL_REVISION=%{svnrev} \
+	-DMANUAL_REVISION=%{svnrev} \
 %endif
-    -DWANT_DCC_VIDEO=ON \
-    -DWANT_OGG_THEORA=ON
+	-DWANT_QT4=OFF \
+	-DWANT_DCC_VIDEO=ON \
+	-DWANT_DCC_CANVAS=OFF \
+	-DWANT_OGG_THEORA=ON
 
 # FIXME this is evil...
-sed -i -e 's|-Wl,--fatal-warnings|-Wl,--no-fatal-warnings|' src/modules/perlcore/CMakeFiles/kviperlcore.dir/link.txt
+#sed -i -e 's|-Wl,--fatal-warnings|-Wl,--no-fatal-warnings|' src/modules/perlcore/CMakeFiles/kviperlcore.dir/link.txt
 
 %make
 
@@ -125,9 +139,9 @@ cp data/icons/scalable/*.svg* %{buildroot}%{_iconsdir}/hicolor/scalable/apps
 
 rm -f %{name}.lang
 find %{buildroot}%{_datadir}/%{name}/%{branch_ver}/locale -name "*.mo" |while read r; do
-        LNG=`echo $r |sed -e 's,.*_,,g;s,\.mo,,'`
-        echo "%lang($LNG) $r" |sed -e 's,%{buildroot},,' >>%{name}.lang
+	LNG=`echo $r |sed -e 's,.*_,,g;s,\.mo,,'`
+	echo "%lang($LNG) $r" |sed -e 's,%{buildroot},,' >>%{name}.lang
 done
 
 %check
-desktop-file-validate %{buildroot}%{_kde_datadir}/applications/%{name}.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
