@@ -32,6 +32,7 @@ BuildRequires:	cmake(Phonon4Qt5)
 BuildRequires:	pkgconfig(python)
 BuildRequires:	pkgconfig(theora)
 BuildRequires:	pkgconfig(Qt5Widgets)
+BuildRequires:	cmake(Qt5Multimedia)
 BuildRequires:	cmake(Qt5MultimediaWidgets)
 BuildRequires:	cmake(Qt5WebKitWidgets)
 BuildRequires:	cmake(Qt5Svg)
@@ -40,6 +41,7 @@ BuildRequires:	pkgconfig(theora)
 BuildRequires:	pkgconfig(ogg)
 BuildRequires:	pkgconfig(vorbis)
 BuildRequires:	qmake5
+BuildRequires:	qt5-qtmultimedia
 Provides:	kde4-irc-client
 %rename kvirc4
 
