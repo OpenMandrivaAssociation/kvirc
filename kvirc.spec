@@ -1,4 +1,4 @@
-%define svnrev 6381
+%define svnrev 6440
 %define branch_ver 4.3
 %define _disable_ld_no_undefined 1
 %define debug_package	  %{nil}
