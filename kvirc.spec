@@ -18,7 +18,7 @@ Source0:	kvirc-%svnrev.tar.xz
 Release:	0.%svnrev.1
 %else
 Source0:	ftp://ftp.kvirc.net/pub/kvirc/%{version}/source/%{name}-%{version}.tar.bz2
-Release:	1
+Release:	2
 %endif
 BuildRequires:	cmake
 BuildRequires:	doxygen
