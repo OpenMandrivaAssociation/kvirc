@@ -1,4 +1,4 @@
-%define svnrev 6440
+%define gitdate 20151222
 %define branch_ver 4.3
 %define _disable_ld_no_undefined 1
 %define debug_package	  %{nil}
@@ -13,12 +13,12 @@ Group:	Networking/IRC
 Version:	4.3.2
 License:	GPLv2+ with exceptions
 URL:	http://www.kvirc.net
-%if 0%svnrev
-Source0:	kvirc-%svnrev.tar.xz
-Release:	0.%svnrev.1
+%if 0%gitdate
+Source0:	kvirc-%gitdate.tar.xz
+Release:	0.%gitdate.1
 %else
 Source0:	ftp://ftp.kvirc.net/pub/kvirc/%{version}/source/%{name}-%{version}.tar.bz2
-Release:	2
+Release:	1
 %endif
 BuildRequires:	cmake
 BuildRequires:	doxygen
@@ -105,8 +105,8 @@ Development headers for KVirc 4.
 
 #--------------------------------------------------------------------
 %prep
-%if 0%svnrev
-%setup -qn %{name}-%{svnrev}
+%if 0%gitdate
+%setup -qn %{name}-%{gitdate}
 %else
 %setup -q
 %endif
@@ -117,8 +117,9 @@ Development headers for KVirc 4.
 # versions of Qt (replaced with GraphicsView)
 # Should be enabled once this is fixed.
 %cmake \
-%if 0%svnrev
-	-DMANUAL_REVISION=%{svnrev} \
+%if 0%{?gitdate}
+	-DMANUAL_REVISION=%gitdate \
+	-DMANUAL_SOURCES_DATE=%gitdate \
 %endif
 	-DWANT_QT4=OFF \
 	-DWANT_DCC_VIDEO=ON \
