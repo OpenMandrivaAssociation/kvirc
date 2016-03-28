@@ -1,7 +1,8 @@
-%define gitdate 20151222
-%define branch_ver 4.3
+%define gitdate %{nil}
+%define branch_ver 4.9
 %define _disable_ld_no_undefined 1
 %define debug_package	  %{nil}
+%define beta alpha2
 
 %define major 4
 %define libname %mklibname kvilib %{major}
@@ -10,15 +11,20 @@
 Name:	kvirc
 Summary:	Qt IRC client
 Group:	Networking/IRC
-Version:	4.3.2
+Version:	5.0.0
 License:	GPLv2+ with exceptions
 URL:	http://www.kvirc.net
 %if 0%gitdate
 Source0:	kvirc-%gitdate.tar.xz
 Release:	0.%gitdate.1
 %else
+%if "%{beta}" != "%{nil}"
+Source0:	ftp://ftp.kvirc.net/pub/kvirc/%{version}-%{beta}/source/%{name}-%{version}-%{beta}.tar.bz2
+Release:	0.%{beta}.1
+%else
 Source0:	ftp://ftp.kvirc.net/pub/kvirc/%{version}/source/%{name}-%{version}.tar.bz2
 Release:	1
+%endif
 %endif
 BuildRequires:	cmake
 BuildRequires:	doxygen
@@ -108,7 +114,11 @@ Development headers for KVirc 4.
 %if 0%gitdate
 %setup -qn %{name}-%{gitdate}
 %else
+%if "%{beta}" != ""
+%setup -qn %{name}-%{version}-%{beta}
+%else
 %setup -q
+%endif
 %endif
 %apply_patches
 
