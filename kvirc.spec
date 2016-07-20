@@ -1,8 +1,8 @@
-%define gitdate %{nil}
+%define gitdate 20160720
 %define branch_ver 4.9
 %define _disable_ld_no_undefined 1
 %define debug_package	  %{nil}
-%define beta alpha2
+%define beta %{nil}
 
 %define major 4
 %define libname %mklibname kvilib %{major}
@@ -15,11 +15,11 @@ Version:	5.0.0
 License:	GPLv2+ with exceptions
 URL:	http://www.kvirc.net
 %if 0%gitdate
-Source0:	kvirc-%gitdate.tar.xz
-Release:	0.%gitdate.1
+Source0:	https://github.com/kvirc/KVIrc/archive/master.tar.gz
+Release:	0.git%gitdate.1
 %else
 %if "%{beta}" != "%{nil}"
-Source0:	ftp://ftp.kvirc.net/pub/kvirc/%{version}-%{beta}/source/%{name}-%{version}-%{beta}.tar.bz2
+Source0:	https://github.com/kvirc/KVIrc/archive/%{beta}.tar.gz
 Release:	0.%{beta}.1
 %else
 Source0:	ftp://ftp.kvirc.net/pub/kvirc/%{version}/source/%{name}-%{version}.tar.bz2
@@ -112,10 +112,10 @@ Development headers for KVirc 4.
 #--------------------------------------------------------------------
 %prep
 %if 0%gitdate
-%setup -qn %{name}-%{gitdate}
+%setup -qn KVIrc-master
 %else
 %if "%{beta}" != ""
-%setup -qn %{name}-%{version}-%{beta}
+%setup -qn %{name}-%{version}%{beta}
 %else
 %setup -q
 %endif
