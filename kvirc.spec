@@ -1,4 +1,4 @@
-%define gitdate 20171006
+%define gitdate 20180302
 %define branch_ver 4.9
 %define _disable_ld_no_undefined 1
 %define debug_package	  %{nil}
@@ -26,7 +26,6 @@ Source0:	ftp://ftp.kvirc.net/pub/kvirc/%{version}/source/%{name}-%{version}.tar.
 Release:	1
 %endif
 %endif
-Patch0:		kvirc-5.0-openssl-1.1.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	gettext
