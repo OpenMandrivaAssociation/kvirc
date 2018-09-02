@@ -1,10 +1,11 @@
-%define gitdate 20180302
-%define branch_ver 4.9
+%define gitdate 20180902
+%define branch_ver 5.0
 %define _disable_ld_no_undefined 1
 %define debug_package	  %{nil}
 %define beta %{nil}
 
-%define major 4
+%define major 5
+%define oldlib %mklibname kvilib 4
 %define libname %mklibname kvilib %{major}
 %define develname %mklibname kvilib -d
 
@@ -55,7 +56,7 @@ Provides:	kde4-irc-client
 Qt-based IRC client with support for themes, transparency, encryption,
 many extended IRC features, and scripting.
 
-%files -f %{name}.lang
+%files
 %{_bindir}/%{name}
 %{_libdir}/%{name}/%{branch_ver}/modules/
 %dir %{_datadir}/%{name}/
@@ -63,7 +64,6 @@ many extended IRC features, and scripting.
 %{_datadir}/%{name}/%{branch_ver}/audio
 %{_datadir}/%{name}/%{branch_ver}/config
 %{_datadir}/%{name}/%{branch_ver}/defscript
-%{_datadir}/%{name}/%{branch_ver}/doc
 %{_datadir}/%{name}/%{branch_ver}/help
 %{_datadir}/%{name}/%{branch_ver}/license
 %dir %{_datadir}/%{name}/%{branch_ver}/locale
@@ -87,6 +87,7 @@ many extended IRC features, and scripting.
 Summary:	Shared library for KVirc 4
 Group:	System/Libraries
 Obsoletes:	%{mklibname kvirc 4 4} < 4.2.0
+Obsoletes:	%{oldlib} < %{EVRD}
 
 %description -n %{libname}
 Shared library provided by KVirc 4.
@@ -138,6 +139,7 @@ Development headers for KVirc 4.
 
 # FIXME this is evil...
 #sed -i -e 's|-Wl,--fatal-warnings|-Wl,--no-fatal-warnings|' src/modules/perlcore/CMakeFiles/kviperlcore.dir/link.txt
+sed -i -e 's|-Wl,--no-undefined||g' src/modules/perlcore/CMakeFiles/kviperlcore.dir/link.txt
 
 %make
 
