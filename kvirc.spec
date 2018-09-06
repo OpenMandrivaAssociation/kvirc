@@ -1,4 +1,4 @@
-%define gitdate 20180902
+%define gitdate 20180906
 %define branch_ver 5.0
 %define _disable_ld_no_undefined 1
 %define debug_package	  %{nil}
@@ -16,7 +16,7 @@ Version:	5.0.0
 License:	GPLv2+ with exceptions
 URL:	http://www.kvirc.net
 %if 0%gitdate
-Source0:	https://github.com/kvirc/KVIrc/archive/master.tar.gz
+Source0:	https://github.com/kvirc/KVIrc/archive/master.zip
 Release:	0.git%gitdate.1
 %else
 %if "%{beta}" != "%{nil}"
@@ -134,6 +134,7 @@ Development headers for KVirc 4.
 	-DMANUAL_SOURCES_DATE=%gitdate \
 %endif
 	-DWANT_QT4=OFF \
+	-DWANT_PERL=ON \
 	-DWANT_DCC_VIDEO=ON \
 	-DWANT_DCC_CANVAS=OFF \
 	-DWANT_OGG_THEORA=ON
