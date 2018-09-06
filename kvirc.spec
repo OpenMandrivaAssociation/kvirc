@@ -34,6 +34,7 @@ BuildRequires:	gsm-devel
 BuildRequires:	perl-devel
 BuildRequires:	shared-mime-info > 0.23
 BuildRequires:	pkgconfig(libv4l1)
+BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	cmake(Phonon4Qt5)
 BuildRequires:	pkgconfig(python)
