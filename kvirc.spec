@@ -1,4 +1,4 @@
-%define gitdate 20180906
+%define gitdate 20181022
 %define branch_ver 5.0
 %define _disable_ld_no_undefined 1
 %define debug_package	  %{nil}
@@ -16,7 +16,7 @@ Version:	5.0.0
 License:	GPLv2+ with exceptions
 URL:	http://www.kvirc.net
 %if 0%gitdate
-Source0:	https://github.com/kvirc/KVIrc/archive/master.zip
+Source0:	https://github.com/kvirc/KVIrc/archive/master.tar.gz
 Release:	0.git%gitdate.1
 %else
 %if "%{beta}" != "%{nil}"
@@ -27,6 +27,7 @@ Source0:	ftp://ftp.kvirc.net/pub/kvirc/%{version}/source/%{name}-%{version}.tar.
 Release:	1
 %endif
 %endif
+Patch0:		kvirc-find-perl-headers.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	gettext
@@ -57,7 +58,7 @@ Provides:	kde4-irc-client
 Qt-based IRC client with support for themes, transparency, encryption,
 many extended IRC features, and scripting.
 
-%files
+%files -f %{name}.lang
 %{_bindir}/%{name}
 %{_libdir}/%{name}/%{branch_ver}/modules/
 %dir %{_datadir}/%{name}/
@@ -114,15 +115,14 @@ Development headers for KVirc 4.
 #--------------------------------------------------------------------
 %prep
 %if 0%gitdate
-%setup -qn KVIrc-master
+%autosetup -p1 -n KVIrc-master
 %else
 %if "%{beta}" != ""
-%setup -qn %{name}-%{version}%{beta}
+%autosetup -p1 -n %{name}-%{version}%{beta}
 %else
-%setup -q
+%autosetup -p1
 %endif
 %endif
-%apply_patches
 
 %build
 # WANT_DCC_CANVAS tries to #include <QCanvas>, which fails on modern

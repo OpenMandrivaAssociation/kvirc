@@ -1,0 +1,13 @@
+diff -up KVIrc-master/src/modules/perlcore/CMakeLists.txt.omv~ KVIrc-master/src/modules/perlcore/CMakeLists.txt
+--- KVIrc-master/src/modules/perlcore/CMakeLists.txt.omv~	2018-10-22 10:09:08.421385174 +0200
++++ KVIrc-master/src/modules/perlcore/CMakeLists.txt	2018-10-22 10:09:51.411559531 +0200
+@@ -12,6 +12,9 @@ if(COMPILE_PERL_SUPPORT)
+ 		OUTPUT_VARIABLE PERL_COMPILE_FLAGS
+ 	)
+ 
++	include_directories(/usr/lib/perl5/CORE)
++	include_directories(/usr/lib64/perl5/CORE)
++
+ 	if(CMAKE_COMPILER_IS_GNUCXX)
+ 		# GCC whines because perl isn't extremely C++11 compliant
+ 		set(PERL_COMPILE_FLAGS "${PERL_COMPILE_FLAGS} -Wno-literal-suffix")
