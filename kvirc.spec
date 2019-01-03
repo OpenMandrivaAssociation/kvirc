@@ -1,4 +1,4 @@
-%define gitdate 20181022
+%define gitdate 20190103
 %define branch_ver 5.0
 %define _disable_ld_no_undefined 1
 %define debug_package	  %{nil}
@@ -9,12 +9,14 @@
 %define libname %mklibname kvilib %{major}
 %define develname %mklibname kvilib -d
 
-Name:	kvirc
+%bcond_without kde
+
+Name:		kvirc
 Summary:	Qt IRC client
-Group:	Networking/IRC
+Group:		Networking/IRC
 Version:	5.0.0
 License:	GPLv2+ with exceptions
-URL:	http://www.kvirc.net
+URL:		http://www.kvirc.net
 %if 0%gitdate
 Source0:	https://github.com/kvirc/KVIrc/archive/master.tar.gz
 Release:	0.git%gitdate.1
@@ -24,7 +26,7 @@ Source0:	https://github.com/kvirc/KVIrc/archive/%{beta}.tar.gz
 Release:	0.%{beta}.1
 %else
 Source0:	ftp://ftp.kvirc.net/pub/kvirc/%{version}/source/%{name}-%{version}.tar.bz2
-Release:	2
+Release:	1
 %endif
 %endif
 Patch0:		kvirc-find-perl-headers.patch
@@ -38,20 +40,36 @@ BuildRequires:	pkgconfig(libv4l1)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	cmake(Phonon4Qt5)
-BuildRequires:	pkgconfig(python)
+BuildRequires:	pkgconfig(python2)
 BuildRequires:	pkgconfig(theora)
 BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	cmake(Qt5Multimedia)
 BuildRequires:	cmake(Qt5MultimediaWidgets)
 BuildRequires:	cmake(Qt5WebKitWidgets)
 BuildRequires:	cmake(Qt5Svg)
+BuildRequires:	cmake(Qt5X11Extras)
 BuildRequires:	cmake(Qt5Xml)
+BuildRequires:	pkgconfig(audiofile)
 BuildRequires:	pkgconfig(theora)
 BuildRequires:	pkgconfig(ogg)
 BuildRequires:	pkgconfig(vorbis)
 BuildRequires:	qmake5
 BuildRequires:	qt5-qtmultimedia
+BuildRequires:	perl(ExtUtils::Embed)
+BuildRequires:	pkgconfig(enchant-2)
 Provides:	kde4-irc-client
+
+%if %{with kde}
+# For KDE support (optional)
+BuildRequires:	cmake(ECM)
+BuildRequires:	cmake(KF5CoreAddons)
+BuildRequires:	cmake(KF5I18n)
+BuildRequires:	cmake(KF5XmlGui)
+BuildRequires:	cmake(KF5WindowSystem)
+BuildRequires:	cmake(KF5Notifications)
+BuildRequires:	cmake(KF5Service)
+%endif
+
 %rename kvirc4
 
 %description
@@ -125,19 +143,16 @@ Development headers for KVirc 4.
 %endif
 
 %build
-# WANT_DCC_CANVAS tries to #include <QCanvas>, which fails on modern
-# versions of Qt (replaced with GraphicsView)
-# Should be enabled once this is fixed.
 %cmake \
 %if 0%{?gitdate}
 	-DMANUAL_REVISION=%gitdate \
 	-DMANUAL_SOURCES_DATE=%gitdate \
 %endif
-	-DWANT_QT4=OFF \
-	-DWANT_PERL=ON \
-	-DWANT_DCC_VIDEO=ON \
-	-DWANT_DCC_CANVAS=OFF \
-	-DWANT_OGG_THEORA=ON
+	-DWANT_PERL:BOOL=ON \
+	-DWANT_PYTHON:BOOL=ON \
+	-DWANT_ESD:BOOL=OFF \
+	-DWANT_DCC_VIDEO:BOOL=ON \
+	-DWANT_OGG_THEORA:BOOL=ON
 
 # FIXME this is evil...
 #sed -i -e 's|-Wl,--fatal-warnings|-Wl,--no-fatal-warnings|' src/modules/perlcore/CMakeFiles/kviperlcore.dir/link.txt
