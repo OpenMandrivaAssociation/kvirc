@@ -1,4 +1,4 @@
-%define gitdate 20190103
+%define gitdate 20190718
 %define branch_ver 5.0
 %define _disable_ld_no_undefined 1
 %define debug_package	  %{nil}
@@ -8,6 +8,8 @@
 %define oldlib %mklibname kvilib 4
 %define libname %mklibname kvilib %{major}
 %define develname %mklibname kvilib -d
+
+%global optflags %{optflags} -Wno-error=register
 
 %bcond_without kde
 
