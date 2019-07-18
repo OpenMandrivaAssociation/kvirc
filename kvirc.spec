@@ -47,7 +47,6 @@ BuildRequires:	pkgconfig(theora)
 BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	cmake(Qt5Multimedia)
 BuildRequires:	cmake(Qt5MultimediaWidgets)
-BuildRequires:	cmake(Qt5WebKitWidgets)
 BuildRequires:	cmake(Qt5Svg)
 BuildRequires:	cmake(Qt5X11Extras)
 BuildRequires:	cmake(Qt5Xml)
@@ -154,7 +153,8 @@ Development headers for KVirc 4.
 	-DWANT_PYTHON:BOOL=ON \
 	-DWANT_ESD:BOOL=OFF \
 	-DWANT_DCC_VIDEO:BOOL=ON \
-	-DWANT_OGG_THEORA:BOOL=ON
+	-DWANT_OGG_THEORA:BOOL=ON \
+	-DWANT_QTWEBKIT:BOOL=OFF
 
 # FIXME this is evil...
 #sed -i -e 's|-Wl,--fatal-warnings|-Wl,--no-fatal-warnings|' src/modules/perlcore/CMakeFiles/kviperlcore.dir/link.txt
