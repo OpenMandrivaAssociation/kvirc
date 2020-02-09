@@ -1,4 +1,4 @@
-%define gitdate 20190922
+%define gitdate 20200209
 %define branch_ver 5.0
 %define _disable_ld_no_undefined 1
 %define debug_package	  %{nil}
@@ -16,11 +16,11 @@
 Name:		kvirc
 Summary:	Qt IRC client
 Group:		Networking/IRC
-Version:	5.0.0
+Version:	5.0.1
 License:	GPLv2+ with exceptions
 URL:		http://www.kvirc.net
 %if 0%gitdate
-Source0:	https://github.com/kvirc/KVIrc/archive/master.tar.gz
+Source0:	https://github.com/kvirc/KVIrc/archive/master/%{name}-%{gitdate}.tar.gz
 Release:	0.git%gitdate.1
 %else
 %if "%{beta}" != "%{nil}"
