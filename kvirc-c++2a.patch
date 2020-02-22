@@ -1,0 +1,37 @@
+diff -up KVIrc-master/CMakeLists.txt.omv~ KVIrc-master/CMakeLists.txt
+diff -up KVIrc-master/cmake/module.rules.txt.omv~ KVIrc-master/cmake/module.rules.txt
+--- KVIrc-master/cmake/module.rules.txt.omv~	2020-02-21 21:40:17.827078538 +0100
++++ KVIrc-master/cmake/module.rules.txt	2020-02-21 21:40:24.473078831 +0100
+@@ -10,7 +10,7 @@ endif()
+ add_library(${kvi_module_name} MODULE ${${kvi_module_name}_SRCS} ${${kvi_module_name}_MOC_SRCS})
+ 
+ # Enable C++11
+-set_property(TARGET ${kvi_module_name} PROPERTY CXX_STANDARD 17)
++set_property(TARGET ${kvi_module_name} PROPERTY CXX_STANDARD 20)
+ set_property(TARGET ${kvi_module_name} PROPERTY CXX_STANDARD_REQUIRED ON)
+ 
+ target_link_libraries(${kvi_module_name} ${KVILIB_BINARYNAME} ${KVIRC_BINARYNAME} ${LIBS})
+diff -up KVIrc-master/src/kvilib/CMakeLists.txt.omv~ KVIrc-master/src/kvilib/CMakeLists.txt
+--- KVIrc-master/src/kvilib/CMakeLists.txt.omv~	2020-02-21 21:39:49.786077301 +0100
++++ KVIrc-master/src/kvilib/CMakeLists.txt	2020-02-21 21:39:55.151077538 +0100
+@@ -131,7 +131,7 @@ add_library(${KVILIB_BINARYNAME} SHARED
+ target_link_libraries(${KVILIB_BINARYNAME} ${LIBS})
+ 
+ # Enable C++17
+-set_property(TARGET ${KVILIB_BINARYNAME} PROPERTY CXX_STANDARD 17)
++set_property(TARGET ${KVILIB_BINARYNAME} PROPERTY CXX_STANDARD 20)
+ set_property(TARGET ${KVILIB_BINARYNAME} PROPERTY CXX_STANDARD_REQUIRED ON)
+ 
+ 
+diff -up KVIrc-master/src/kvirc/CMakeLists.txt.omv~ KVIrc-master/src/kvirc/CMakeLists.txt
+--- KVIrc-master/src/kvirc/CMakeLists.txt.omv~	2020-02-21 21:40:00.273077764 +0100
++++ KVIrc-master/src/kvirc/CMakeLists.txt	2020-02-21 21:40:06.835078053 +0100
+@@ -271,7 +271,7 @@ endif()
+ target_link_libraries(${KVIRC_BINARYNAME} ${KVILIB_BINARYNAME} ${LIBS})
+ 
+ # Enable C++17
+-set_property(TARGET ${KVIRC_BINARYNAME} PROPERTY CXX_STANDARD 17)
++set_property(TARGET ${KVIRC_BINARYNAME} PROPERTY CXX_STANDARD 20)
+ set_property(TARGET ${KVIRC_BINARYNAME} PROPERTY CXX_STANDARD_REQUIRED ON)
+ 
+ if(Qt5Widgets_FOUND)
