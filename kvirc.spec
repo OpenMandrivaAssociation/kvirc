@@ -1,7 +1,6 @@
-%define gitdate 20200723
+%define gitdate 20210619
 %define branch_ver 5.0
 %define _disable_ld_no_undefined 1
-%define debug_package	  %{nil}
 %define beta %{nil}
 
 %define major 5
@@ -9,7 +8,7 @@
 %define libname %mklibname kvilib %{major}
 %define develname %mklibname kvilib -d
 
-%global optflags %{optflags} -Wno-error=register
+%global optflags %{optflags} -Wno-error=register -fno-semantic-interposition -Wl,-Bsymbolic,-Bsymbolic-functions
 
 %bcond_without kde
 
@@ -35,6 +34,7 @@ Patch0:		kvirc-find-perl-headers.patch
 Patch1:		kvirc-c++2a.patch
 Patch2:		kvirc-QTBUG-82415.patch
 BuildRequires:	cmake
+BuildRequires:	ninja
 BuildRequires:	doxygen
 BuildRequires:	gettext
 BuildRequires:	gsm-devel
@@ -44,7 +44,7 @@ BuildRequires:	pkgconfig(libv4l1)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	cmake(Phonon4Qt5)
-BuildRequires:	pkgconfig(python2)
+BuildRequires:	pkgconfig(python3)
 BuildRequires:	pkgconfig(theora)
 BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	cmake(Qt5Multimedia)
@@ -95,7 +95,7 @@ many extended IRC features, and scripting.
 %{_datadir}/%{name}/%{branch_ver}/msgcolors
 %{_datadir}/%{name}/%{branch_ver}/pics
 %{_datadir}/%{name}/%{branch_ver}/themes
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/net.kvirc.KVIrc5.desktop
 %{_datadir}/pixmaps/%{name}.png
 %{_iconsdir}/hicolor/*/*/*.png
 %{_iconsdir}/hicolor/scalable/*/*.svgz
@@ -145,9 +145,8 @@ Development headers for KVirc 4.
 %autosetup -p1
 %endif
 %endif
-
-%build
 %cmake \
+	-DCMAKE_BUILD_TYPE=Release \
 %if 0%{?gitdate}
 	-DMANUAL_REVISION=%gitdate \
 	-DMANUAL_SOURCES_DATE=%gitdate \
@@ -156,16 +155,14 @@ Development headers for KVirc 4.
 	-DWANT_PYTHON:BOOL=ON \
 	-DWANT_ESD:BOOL=OFF \
 	-DWANT_DCC_VIDEO:BOOL=ON \
-	-DWANT_OGG_THEORA:BOOL=ON
+	-DWANT_OGG_THEORA:BOOL=ON \
+	-G Ninja
 
-# FIXME this is evil...
-#sed -i -e 's|-Wl,--fatal-warnings|-Wl,--no-fatal-warnings|' src/modules/perlcore/CMakeFiles/kviperlcore.dir/link.txt
-sed -i -e 's|-Wl,--no-undefined||g' src/modules/perlcore/CMakeFiles/kviperlcore.dir/link.txt
-
-%make
+%build
+%ninja_build -C build
 
 %install
-%makeinstall_std -C build
+%ninja_install -C build
 
 mkdir -p %{buildroot}%{_iconsdir}/hicolor/{16x16,32x32,48x48,64x64,128x128,scalable}/apps
 for i in 16x16 32x32 48x48 64x64 128x128; do \
@@ -178,6 +175,3 @@ find %{buildroot}%{_datadir}/%{name}/%{branch_ver}/locale -name "*.mo" |while re
 	LNG=`echo $r |sed -e 's,.*_,,g;s,\.mo,,'`
 	echo "%lang($LNG) $r" |sed -e 's,%{buildroot},,' >>%{name}.lang
 done
-
-%check
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
