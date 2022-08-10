@@ -1,4 +1,4 @@
-%define gitdate 20210818
+%define gitdate 20220810
 %define branch_ver 5.0
 %define _disable_ld_no_undefined 1
 %define beta %{nil}
@@ -33,6 +33,7 @@ Release:	1
 Patch0:		kvirc-find-perl-headers.patch
 Patch1:		kvirc-c++2a.patch
 Patch2:		kvirc-QTBUG-82415.patch
+Patch3:		kvirc-20220810-compile.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	doxygen
