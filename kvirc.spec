@@ -1,4 +1,4 @@
-%define gitdate 20220810
+%define gitdate 20230824
 %define branch_ver 5.0
 %define _disable_ld_no_undefined 1
 %define beta %{nil}
@@ -20,20 +20,21 @@ License:	GPLv2+ with exceptions
 URL:		http://www.kvirc.net
 %if 0%gitdate
 Source0:	https://github.com/kvirc/KVIrc/archive/master/%{name}-%{gitdate}.tar.gz
-Release:	0.git%gitdate.2
+Release:	0.git%gitdate.1
 %else
 %if "%{beta}" != "%{nil}"
 Source0:	https://github.com/kvirc/KVIrc/archive/%{beta}.tar.gz
 Release:	0.%{beta}.1
 %else
 Source0:	ftp://ftp.kvirc.net/pub/kvirc/%{version}/source/%{name}-%{version}.tar.bz2
-Release:	2
+Release:	1
 %endif
 %endif
 Patch0:		kvirc-find-perl-headers.patch
 Patch1:		kvirc-c++2a.patch
 Patch2:		kvirc-QTBUG-82415.patch
 Patch3:		kvirc-20220810-compile.patch
+Patch4:		kvirc-20230824-compile.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	doxygen

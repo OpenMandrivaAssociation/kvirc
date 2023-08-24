@@ -1,0 +1,12 @@
+diff -up KVIrc-master/src/modules/dcc/DccVideoWindow.cpp.omv~ KVIrc-master/src/modules/dcc/DccVideoWindow.cpp
+--- KVIrc-master/src/modules/dcc/DccVideoWindow.cpp.omv~	2023-08-24 02:14:12.860238317 +0200
++++ KVIrc-master/src/modules/dcc/DccVideoWindow.cpp	2023-08-24 02:14:54.386590994 +0200
+@@ -657,7 +657,7 @@ const QString & DccVideoWindow::target()
+ 	if(!m_pszTarget)
+ 		m_pszTarget = new QString();
+ 
+-	m_pszTarget = QString::asprintf("%s@%s:%s", m_pDescriptor->szNick.toUtf8().data(), m_pDescriptor->szIp.toUtf8().data(), m_pDescriptor->szPort.toUtf8().data());
++	*m_pszTarget = QString::asprintf("%s@%s:%s", m_pDescriptor->szNick.toUtf8().data(), m_pDescriptor->szIp.toUtf8().data(), m_pDescriptor->szPort.toUtf8().data());
+ 	return *m_pszTarget;
+ }
+ 
