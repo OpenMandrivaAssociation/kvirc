@@ -15,7 +15,7 @@
 Name:		kvirc
 Summary:	Qt IRC client
 Group:		Networking/IRC
-Version:	5.0.1
+Version:	5.2.0
 License:	GPLv2+ with exceptions
 URL:		http://www.kvirc.net
 %if 0%gitdate
@@ -24,7 +24,7 @@ Release:	0.git%gitdate.1
 %else
 %if "%{beta}" != "%{nil}"
 Source0:	https://github.com/kvirc/KVIrc/archive/%{beta}.tar.gz
-Release:	0.%{beta}.1
+Release:	0.%{beta}1
 %else
 Source0:	ftp://ftp.kvirc.net/pub/kvirc/%{version}/source/%{name}-%{version}.tar.bz2
 Release:	1
