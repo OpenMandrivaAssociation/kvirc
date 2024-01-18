@@ -23,7 +23,7 @@ Source0:	https://github.com/kvirc/KVIrc/archive/refs/tags/%{version}/KVIrc-%{ver
 Release:	1
 
 Patch0:		kvirc-find-perl-headers.patch
-Patch1:		kvirc-c++2a.patch
+#Patch1:		kvirc-c++2a.patch
 Patch2:		kvirc-QTBUG-82415.patch
 Patch3:		kvirc-20220810-compile.patch
 Patch4:		kvirc-20230824-compile.patch
