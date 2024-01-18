@@ -80,16 +80,16 @@ many extended IRC features, and scripting.
 %{_libdir}/%{name}/%{branch_ver}/modules/
 %dir %{_datadir}/%{name}/
 %dir %{_datadir}/%{name}/%{branch_ver}
-%{_datadir}/%{name}/%{branch_ver}/audio
-%{_datadir}/%{name}/%{branch_ver}/config
-%{_datadir}/%{name}/%{branch_ver}/defscript
-%{_datadir}/%{name}/%{branch_ver}/help
-%{_datadir}/%{name}/%{branch_ver}/license
-%dir %{_datadir}/%{name}/%{branch_ver}/locale
-%{_datadir}/%{name}/%{branch_ver}/modules
-%{_datadir}/%{name}/%{branch_ver}/msgcolors
-%{_datadir}/%{name}/%{branch_ver}/pics
-%{_datadir}/%{name}/%{branch_ver}/themes
+#{_datadir}/%{name}/%{branch_ver}/audio
+#{_datadir}/%{name}/%{branch_ver}/config
+#{_datadir}/%{name}/%{branch_ver}/defscript
+#{_datadir}/%{name}/%{branch_ver}/help
+#{_datadir}/%{name}/%{branch_ver}/license
+#dir %{_datadir}/%{name}/%{branch_ver}/locale
+#{_datadir}/%{name}/%{branch_ver}/modules
+#{_datadir}/%{name}/%{branch_ver}/msgcolors
+#{_datadir}/%{name}/%{branch_ver}/pics
+#{_datadir}/%{name}/%{branch_ver}/themes
 %{_datadir}/applications/net.kvirc.KVIrc5.desktop
 %{_datadir}/pixmaps/%{name}.png
 %{_iconsdir}/hicolor/*/*/*.png
