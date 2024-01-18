@@ -1,4 +1,4 @@
-%define gitdate 20230824
+#define gitdate 20230824
 %define branch_ver 5.0
 %define _disable_ld_no_undefined 1
 %define beta %{nil}
@@ -26,7 +26,9 @@ Release:	0.git%gitdate.1
 Source0:	https://github.com/kvirc/KVIrc/archive/%{beta}.tar.gz
 Release:	0.%{beta}1
 %else
-Source0:	ftp://ftp.kvirc.net/pub/kvirc/%{version}/source/%{name}-%{version}.tar.bz2
+Source0:	https://github.com/kvirc/KVIrc/archive/refs/tags/%{version}/KVIrc-%{version}.tar.gz
+# Looks like no longer updated
+#Source0:	ftp://ftp.kvirc.net/pub/kvirc/%{version}/source/%{name}-%{version}.tar.bz2
 Release:	1
 %endif
 %endif
