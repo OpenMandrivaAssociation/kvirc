@@ -146,7 +146,7 @@ Development headers for KVirc 4.
 %if "%{beta}" != ""
 %autosetup -p1 -n %{name}-%{version}%{beta}
 %else
-%autosetup -p1
+%autosetup -n KVIrc-%{version} -p1
 %endif
 %endif
 %cmake \
