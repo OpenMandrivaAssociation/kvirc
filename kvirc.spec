@@ -77,9 +77,9 @@ many extended IRC features, and scripting.
 %files 
 #-f %{name}.lang
 %{_bindir}/%{name}
-%{_libdir}/%{name}/%{branch_ver}/modules/
+#{_libdir}/%{name}/%{branch_ver}/modules/
 %dir %{_datadir}/%{name}/
-%dir %{_datadir}/%{name}/%{branch_ver}
+#dir %{_datadir}/%{name}/%{branch_ver}
 #{_datadir}/%{name}/%{branch_ver}/audio
 #{_datadir}/%{name}/%{branch_ver}/config
 #{_datadir}/%{name}/%{branch_ver}/defscript
