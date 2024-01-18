@@ -139,6 +139,7 @@ Development headers for KVirc 4.
 	-DWANT_ESD:BOOL=OFF \
 	-DWANT_DCC_VIDEO:BOOL=ON \
 	-DWANT_OGG_THEORA:BOOL=ON \
+ 	-DWANT_QT6:BOOL=ON \
  	-DBUILD_WITH_QT6:BOOL=ON \
 	-G Ninja
 
