@@ -37,22 +37,22 @@ BuildRequires:	shared-mime-info > 0.23
 BuildRequires:	pkgconfig(libv4l1)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(openssl)
-BuildRequires:	cmake(Phonon4Qt5)
-BuildRequires:	pkgconfig(python3)
+BuildRequires:	cmake(Phonon4Qt6)
+BuildRequires:	pkgconfig(python)
 BuildRequires:	pkgconfig(theora)
-BuildRequires:	pkgconfig(Qt5Widgets)
-BuildRequires:	cmake(Qt5Multimedia)
-BuildRequires:	cmake(Qt5MultimediaWidgets)
-BuildRequires:	cmake(Qt5WebKitWidgets)
-BuildRequires:	cmake(Qt5Svg)
-BuildRequires:	cmake(Qt5X11Extras)
-BuildRequires:	cmake(Qt5Xml)
+BuildRequires:	pkgconfig(Qt6Widgets)
+BuildRequires:	cmake(Qt6Multimedia)
+BuildRequires:	cmake(Qt6MultimediaWidgets)
+#BuildRequires:	cmake(Qt5WebKitWidgets)
+BuildRequires:	cmake(Qt6Svg)
+#BuildRequires:	cmake(Qt6X11Extras)
+BuildRequires:	cmake(Qt6Xml)
 BuildRequires:	pkgconfig(audiofile)
 BuildRequires:	pkgconfig(theora)
 BuildRequires:	pkgconfig(ogg)
 BuildRequires:	pkgconfig(vorbis)
 BuildRequires:	qmake5
-BuildRequires:	qt5-qtmultimedia
+#BuildRequires:	qt5-qtmultimedia
 BuildRequires:	perl(ExtUtils::Embed)
 BuildRequires:	pkgconfig(enchant-2)
 Provides:	kde4-irc-client
@@ -60,12 +60,12 @@ Provides:	kde4-irc-client
 %if %{with kde}
 # For KDE support (optional)
 BuildRequires:	cmake(ECM)
-BuildRequires:	cmake(KF5CoreAddons)
-BuildRequires:	cmake(KF5I18n)
-BuildRequires:	cmake(KF5XmlGui)
-BuildRequires:	cmake(KF5WindowSystem)
-BuildRequires:	cmake(KF5Notifications)
-BuildRequires:	cmake(KF5Service)
+BuildRequires:	cmake(KF6CoreAddons)
+BuildRequires:	cmake(KF6I18n)
+BuildRequires:	cmake(KF6XmlGui)
+BuildRequires:	cmake(KF6WindowSystem)
+BuildRequires:	cmake(KF6Notifications)
+BuildRequires:	cmake(KF6Service)
 %endif
 
 %rename kvirc4
