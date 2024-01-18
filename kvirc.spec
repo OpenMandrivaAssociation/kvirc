@@ -1,7 +1,6 @@
-#define gitdate 20230824
 %define branch_ver 5.0
 %define _disable_ld_no_undefined 1
-%define beta %{nil}
+
 
 %define major 5
 %define oldlib %mklibname kvilib 4
@@ -18,20 +17,11 @@ Group:		Networking/IRC
 Version:	5.2.0
 License:	GPLv2+ with exceptions
 URL:		http://www.kvirc.net
-%if 0%gitdate
-Source0:	https://github.com/kvirc/KVIrc/archive/master/%{name}-%{gitdate}.tar.gz
-Release:	0.git%gitdate.1
-%else
-%if "%{beta}" != "%{nil}"
-Source0:	https://github.com/kvirc/KVIrc/archive/%{beta}.tar.gz
-Release:	0.%{beta}1
-%else
 Source0:	https://github.com/kvirc/KVIrc/archive/refs/tags/%{version}/KVIrc-%{version}.tar.gz
 # Looks like no longer updated
 #Source0:	ftp://ftp.kvirc.net/pub/kvirc/%{version}/source/%{name}-%{version}.tar.bz2
 Release:	1
-%endif
-%endif
+
 Patch0:		kvirc-find-perl-headers.patch
 Patch1:		kvirc-c++2a.patch
 Patch2:		kvirc-QTBUG-82415.patch
@@ -140,21 +130,9 @@ Development headers for KVirc 4.
 
 #--------------------------------------------------------------------
 %prep
-%if 0%gitdate
-%autosetup -p1 -n KVIrc-master
-%else
-%if "%{beta}" != ""
-%autosetup -p1 -n %{name}-%{version}%{beta}
-%else
 %autosetup -n KVIrc-%{version} -p1
-%endif
-%endif
 %cmake \
 	-DCMAKE_BUILD_TYPE=Release \
-%if 0%{?gitdate}
-	-DMANUAL_REVISION=%gitdate \
-	-DMANUAL_SOURCES_DATE=%gitdate \
-%endif
 	-DWANT_PERL:BOOL=ON \
 	-DWANT_PYTHON:BOOL=ON \
 	-DWANT_ESD:BOOL=OFF \
