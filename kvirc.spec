@@ -74,7 +74,8 @@ BuildRequires:	cmake(KF5Service)
 Qt-based IRC client with support for themes, transparency, encryption,
 many extended IRC features, and scripting.
 
-%files -f %{name}.lang
+%files 
+#-f %{name}.lang
 %{_bindir}/%{name}
 %{_libdir}/%{name}/%{branch_ver}/modules/
 %dir %{_datadir}/%{name}/
