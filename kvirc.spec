@@ -58,11 +58,13 @@ BuildRequires:	pkgconfig(audiofile)
 BuildRequires:	pkgconfig(theora)
 BuildRequires:	pkgconfig(ogg)
 BuildRequires:	pkgconfig(vorbis)
-BuildRequires:	qmake5
+BuildRequires:	qmake-qt6
 #BuildRequires:	qt5-qtmultimedia
 BuildRequires:	perl(ExtUtils::Embed)
 BuildRequires:	pkgconfig(enchant-2)
 Provides:	kde4-irc-client
+
+Conflicts: lib64Qt6Core-devel
 
 %if %{with kde}
 # For KDE support (optional)
