@@ -71,6 +71,8 @@ Provides:	kde4-irc-client
 BuildRequires:	cmake(ECM)
 BuildRequires:	cmake(KF5CoreAddons)
 BuildRequires:	cmake(KF5I18n)
+BuildRequires:	cmake(KF5KIO)
+BuildRequires:	cmake(KF5Parts)
 BuildRequires:	cmake(KF5XmlGui)
 BuildRequires:	cmake(KF5WindowSystem)
 BuildRequires:	cmake(KF5Notifications)
