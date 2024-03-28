@@ -15,7 +15,7 @@
 Name:		kvirc
 Summary:	Qt IRC client
 Group:		Networking/IRC
-Version:	5.2.0
+Version:	5.2.2
 License:	GPLv2+ with exceptions
 URL:		http://www.kvirc.net
 %if 0%gitdate
@@ -26,7 +26,7 @@ Release:	1
 Source0:	https://github.com/kvirc/KVIrc/archive/%{beta}.tar.gz
 Release:	0.%{beta}1
 %else
-Source0:	https://github.com/kvirc/KVIrc/archive/KVIrc-%{version}.tar.gz
+Source0:	https://github.com/kvirc/KVIrc/archive/refs/tags/%{version}.tar.gz
 Release:	1
 %endif
 %endif
@@ -34,7 +34,6 @@ Patch0:		kvirc-find-perl-headers.patch
 #Patch1:		kvirc-c++2a.patch
 #Patch2:		kvirc-QTBUG-82415.patch
 Patch3:		kvirc-20220810-compile.patch
-Patch4:		kvirc-20230824-compile.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	doxygen
@@ -45,24 +44,23 @@ BuildRequires:	shared-mime-info > 0.23
 BuildRequires:	pkgconfig(libv4l1)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(openssl)
-BuildRequires:	cmake(Phonon4Qt5)
+BuildRequires:	cmake(Phonon4Qt6)
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	pkgconfig(theora)
-BuildRequires:	pkgconfig(Qt5Widgets)
-BuildRequires:	cmake(Qt5Concurrent)
-BuildRequires:	cmake(Qt5Multimedia)
-BuildRequires:	cmake(Qt5MultimediaWidgets)
-BuildRequires:	cmake(Qt5WebEngineWidgets)
-BuildRequires:	cmake(Qt5Sql)
-BuildRequires:	cmake(Qt5Svg)
-BuildRequires:	cmake(Qt5X11Extras)
-BuildRequires:	cmake(Qt5Xml)
+BuildRequires:	cmake(Qt6Core)
+BuildRequires:	cmake(Qt6Core5Compat)
+BuildRequires:	cmake(Qt6Concurrent)
+BuildRequires:	cmake(Qt6Multimedia)
+BuildRequires:	cmake(Qt6MultimediaWidgets)
+BuildRequires:	cmake(Qt6WebEngineWidgets)
+BuildRequires:	cmake(Qt6Sql)
+BuildRequires:	cmake(Qt6Svg)
+BuildRequires:	cmake(Qt6Widgets)
+BuildRequires:	cmake(Qt6Xml)
 BuildRequires:	pkgconfig(audiofile)
 BuildRequires:	pkgconfig(theora)
 BuildRequires:	pkgconfig(ogg)
 BuildRequires:	pkgconfig(vorbis)
-BuildRequires:	qmake5
-BuildRequires:	qt5-qtmultimedia
 BuildRequires:	perl(ExtUtils::Embed)
 BuildRequires:	pkgconfig(enchant-2)
 Provides:	kde4-irc-client
@@ -70,14 +68,14 @@ Provides:	kde4-irc-client
 %if %{with kde}
 # For KDE support (optional)
 BuildRequires:	cmake(ECM)
-BuildRequires:	cmake(KF5CoreAddons)
-BuildRequires:	cmake(KF5I18n)
-BuildRequires:	cmake(KF5KIO)
-BuildRequires:	cmake(KF5Parts)
-BuildRequires:	cmake(KF5XmlGui)
-BuildRequires:	cmake(KF5WindowSystem)
-BuildRequires:	cmake(KF5Notifications)
-BuildRequires:	cmake(KF5Service)
+BuildRequires:	cmake(KF6CoreAddons)
+BuildRequires:	cmake(KF6I18n)
+BuildRequires:	cmake(KF6KIO)
+BuildRequires:	cmake(KF6Parts)
+BuildRequires:	cmake(KF6XmlGui)
+BuildRequires:	cmake(KF6WindowSystem)
+BuildRequires:	cmake(KF6Notifications)
+BuildRequires:	cmake(KF6Service)
 %endif
 
 %rename kvirc4
@@ -153,6 +151,7 @@ Development headers for KVirc 4.
 %endif
 %cmake \
 	-DCMAKE_BUILD_TYPE=Release \
+	-DQT_VERSION_MAJOR=6 \
 %if 0%{?gitdate}
 	-DMANUAL_REVISION=%gitdate \
 	-DMANUAL_SOURCES_DATE=%gitdate \
@@ -160,9 +159,10 @@ Development headers for KVirc 4.
 	-DWANT_PERL:BOOL=ON \
 	-DWANT_PYTHON:BOOL=ON \
 	-DWANT_ESD:BOOL=OFF \
-	-DWANT_DCC_VIDEO:BOOL=ON \
 	-DWANT_OGG_THEORA:BOOL=ON \
 	-G Ninja
+# FIXME Re-enable when ported to Qt 6
+#	-DWANT_DCC_VIDEO:BOOL=ON \
 
 %build
 %ninja_build -C build
