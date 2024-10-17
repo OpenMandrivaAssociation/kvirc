@@ -17,7 +17,7 @@ Summary:	Qt IRC client
 Group:		Networking/IRC
 Version:	5.2.6
 License:	GPLv2+ with exceptions
-URL:		http://www.kvirc.net
+URL:		https://www.kvirc.net
 %if 0%gitdate
 Source0:	https://github.com/kvirc/KVIrc/archive/master/%{name}-%{gitdate}.tar.gz
 Release:	1
