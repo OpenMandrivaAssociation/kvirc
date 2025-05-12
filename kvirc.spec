@@ -20,14 +20,14 @@ License:	GPLv2+ with exceptions
 URL:		https://www.kvirc.net
 %if 0%gitdate
 Source0:	https://github.com/kvirc/KVIrc/archive/master/%{name}-%{gitdate}.tar.gz
-Release:	1
+Release:	2
 %else
 %if "%{beta}" != "%{nil}"
 Source0:	https://github.com/kvirc/KVIrc/archive/%{beta}.tar.gz
 Release:	0.%{beta}1
 %else
 Source0:	https://github.com/kvirc/KVIrc/archive/refs/tags/%{version}.tar.gz
-Release:	1
+Release:	2
 %endif
 %endif
 Patch0:		kvirc-find-perl-headers.patch
