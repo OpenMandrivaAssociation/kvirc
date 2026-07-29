@@ -20,20 +20,21 @@ License:	GPLv2+ with exceptions
 URL:		https://www.kvirc.net
 %if 0%gitdate
 Source0:	https://github.com/kvirc/KVIrc/archive/master/%{name}-%{gitdate}.tar.gz
-Release:	2
+Release:	3
 %else
 %if "%{beta}" != "%{nil}"
 Source0:	https://github.com/kvirc/KVIrc/archive/%{beta}.tar.gz
 Release:	0.%{beta}1
 %else
 Source0:	https://github.com/kvirc/KVIrc/archive/refs/tags/%{version}.tar.gz
-Release:	2
+Release:	3
 %endif
 %endif
 Patch0:		kvirc-find-perl-headers.patch
 #Patch1:		kvirc-c++2a.patch
 #Patch2:		kvirc-QTBUG-82415.patch
 Patch3:		kvirc-20220810-compile.patch
+Patch4:	kvirc-openssl3-asn1-opaque.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	doxygen

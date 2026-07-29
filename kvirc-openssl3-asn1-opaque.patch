@@ -1,0 +1,18 @@
+--- KVIrc-5.2.10.orig/src/kvilib/net/KviSSL.cpp	2025-12-12 14:46:08.000000000 +0100
++++ KVIrc-5.2.10/src/kvilib/net/KviSSL.cpp	2026-07-29 21:04:03.807660441 +0200
+@@ -950,12 +950,12 @@
+ 
+ 	m_szSignatureContents = "";
+ 
+-	for(i = 0; i < sig->length; i++)
++	for(i = 0; i < ASN1_STRING_length(sig); i++)
+ 	{
+ 		if(m_szSignatureContents.hasData())
+ 			m_szSignatureContents.append(":");
+-		m_szSignatureContents.append(hexdigits[(sig->data[i] & 0xf0) >> 4]);
+-		m_szSignatureContents.append(hexdigits[(sig->data[i] & 0x0f)]);
++		m_szSignatureContents.append(hexdigits[(ASN1_STRING_get0_data(sig)[i] & 0xf0) >> 4]);
++		m_szSignatureContents.append(hexdigits[(ASN1_STRING_get0_data(sig)[i] & 0x0f)]);
+ 	}
+ }
+ 
