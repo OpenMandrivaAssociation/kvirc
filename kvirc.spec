@@ -20,7 +20,7 @@ License:	GPLv2+ with exceptions
 URL:		https://www.kvirc.net
 %if 0%gitdate
 Source0:	https://github.com/kvirc/KVIrc/archive/master/%{name}-%{gitdate}.tar.gz
-Release:	3
+Release:	4
 %else
 %if "%{beta}" != "%{nil}"
 Source0:	https://github.com/kvirc/KVIrc/archive/%{beta}.tar.gz
