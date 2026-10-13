@@ -27,7 +27,7 @@ Source0:	https://github.com/kvirc/KVIrc/archive/%{beta}.tar.gz
 Release:	0.%{beta}1
 %else
 Source0:	https://github.com/kvirc/KVIrc/archive/refs/tags/%{version}.tar.gz
-Release:	3
+Release:	4
 %endif
 %endif
 Patch0:		kvirc-find-perl-headers.patch
